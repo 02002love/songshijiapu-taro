@@ -1,0 +1,65 @@
+.item-wrapper {
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-end;
+  width: 4.2rem;
+  height: fit-content;
+  background-color: #fffbf5;
+  border-radius: 0.3rem;
+  border: 0.025rem solid #e7c48d;
+  margin: 1rem;
+  position: relative;
+}
+.item-wrapper .dash-line {
+  width: 0.01rem;
+  border: 0.05rem dashed #824504;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: 1.1rem;
+}
+.item-wrapper .item-word-wrapper {
+  display: flex;
+  align-items: center;
+  justify-items: center;
+  flex-direction: column;
+  margin: 0.2rem;
+}
+.item-wrapper .item-word-wrapper .item-dot {
+  background-color: rgba(130, 69, 4, 0);
+  border-radius: 0.2rem;
+  width: 0.3rem;
+  height: 0.3rem;
+  border: 0.025rem solid #824504;
+}
+.item-wrapper .item-word-wrapper .item-word {
+  width: 0.8rem;
+  overflow-wrap: break-word;
+  color: #824504;
+  font-size: 0.8rem;
+  font-family: STKaiti;
+  font-weight: normal;
+  text-align: left;
+  line-height: 1.1rem;
+  align-self: center;
+  margin-top: 0.1rem;
+}
+.item-wrapper .item-word-wrapper .item-word-Lishu {
+  font-family: LiSu;
+}
+.item-wrapper .item-word-wrapper .item-generate {
+  background-color: rgba(216, 216, 216, 0);
+  border-radius: 0.45rem;
+  border: 0.025rem solid #5f7793;
+  margin-top: 0.25rem;
+  overflow-wrap: break-word;
+  color: #5f7793;
+  font-size: 0.6rem;
+  font-family: STKaiti;
+  font-weight: normal;
+  text-align: left;
+  white-space: nowrap;
+  line-height: 0.7rem;
+  height: 0.7rem;
+  width: 0.7rem;
+}
