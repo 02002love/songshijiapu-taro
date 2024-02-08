@@ -1,0 +1,109 @@
+Arguments: 
+  /Users/yiche/.nvm/versions/node/v18.4.0/bin/node /usr/local/bin/yarn add react-flow-renderer
+
+PATH: 
+  /usr/local/Cellar/python@3.8/3.8.5/Frameworks/Python.framework/Versions/3.8/bin:/Users/yiche/.nvm/versions/node/v18.4.0/bin:/usr/local/bin:/opt/local/bin:/opt/local/sbin:/usr/local/bin:/System/Cryptexes/App/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin:/Library/Apple/usr/bin:/usr/local/go/bin:/usr/local/Cellar/python@3.8/3.8.5/Frameworks/Python.framework/Versions/3.8/bin:/Users/yiche/.nvm/versions/node/v18.4.0/bin:/opt/local/bin:/opt/local/sbin:/Users/yiche/Go/bin:/Users/yiche/Library/Android/sdk/tools:/Users/yiche/Library/Android/sdk/platform-tools:/Users/yiche/flutterBin/flutter/bin:/Users/yiche/Go/bin:/Users/yiche/Library/Android/sdk/tools:/Users/yiche/Library/Android/sdk/platform-tools:/Users/yiche/flutterBin/flutter/bin:/usr/local/bin
+
+Yarn version: 
+  1.22.4
+
+Node version: 
+  18.4.0
+
+Platform: 
+  darwin x64
+
+Trace: 
+  Error: ENOENT: no such file or directory, copyfile '/Users/yiche/Library/Caches/Yarn/v6/npm-color-convert-1.9.3-bb71850690e1f136567de629d2d5471deda4c1e8-integrity/node_modules/color-convert/LICENSE' -> '/Users/yiche/Desktop/zupu/songshijiapu-taro/node_modules/@babel/code-frame/node_modules/color-convert/LICENSE'
+
+npm manifest: 
+  {
+    "name": "songshijiapu-taro",
+    "version": "1.0.0",
+    "private": true,
+    "description": "宋氏家谱",
+    "templateInfo": {
+      "name": "default",
+      "typescript": true,
+      "css": "less"
+    },
+    "scripts": {
+      "build:weapp": "taro build --type weapp",
+      "build:swan": "taro build --type swan",
+      "build:alipay": "taro build --type alipay",
+      "build:tt": "taro build --type tt",
+      "build:h5": "taro build --type h5",
+      "build:rn": "taro build --type rn",
+      "build:qq": "taro build --type qq",
+      "build:jd": "taro build --type jd",
+      "build:quickapp": "taro build --type quickapp",
+      "dev:weapp": "npm run build:weapp -- --watch",
+      "dev:swan": "npm run build:swan -- --watch",
+      "dev:alipay": "npm run build:alipay -- --watch",
+      "dev:tt": "npm run build:tt -- --watch",
+      "dev:h5": "npm run build:h5 -- --watch",
+      "dev:rn": "npm run build:rn -- --watch",
+      "dev:qq": "npm run build:qq -- --watch",
+      "dev:jd": "npm run build:jd -- --watch",
+      "dev:quickapp": "npm run build:quickapp -- --watch"
+    },
+    "browserslist": [
+      "last 3 versions",
+      "Android >= 4.1",
+      "ios >= 8"
+    ],
+    "author": "",
+    "dependencies": {
+      "@babel/runtime": "^7.7.7",
+      "@tarojs/components": "3.6.8",
+      "@tarojs/helper": "3.6.8",
+      "@tarojs/plugin-framework-react": "3.6.8",
+      "@tarojs/plugin-platform-alipay": "3.6.8",
+      "@tarojs/plugin-platform-h5": "3.6.8",
+      "@tarojs/plugin-platform-jd": "3.6.8",
+      "@tarojs/plugin-platform-qq": "3.6.8",
+      "@tarojs/plugin-platform-swan": "3.6.8",
+      "@tarojs/plugin-platform-tt": "3.6.8",
+      "@tarojs/plugin-platform-weapp": "3.6.8",
+      "@tarojs/react": "3.6.8",
+      "@tarojs/runtime": "3.6.8",
+      "@tarojs/shared": "3.6.8",
+      "@tarojs/taro": "3.6.8",
+      "@types/echarts": "^4.9.22",
+      "echarts": "^5.2.2",
+      "echarts-taro3-react": "^1.0.13",
+      "react": "^18.0.0",
+      "react-dom": "^18.0.0",
+      "taro-react-echarts": "^1.2.2"
+    },
+    "devDependencies": {
+      "@babel/core": "^7.8.0",
+      "@tarojs/cli": "3.6.8",
+      "@types/webpack-env": "^1.13.6",
+      "@types/react": "^18.0.0",
+      "webpack": "5.78.0",
+      "@tarojs/taro-loader": "3.6.8",
+      "@tarojs/webpack5-runner": "3.6.8",
+      "babel-preset-taro": "3.6.8",
+      "eslint-config-taro": "3.6.8",
+      "eslint": "^8.12.0",
+      "@pmmmwh/react-refresh-webpack-plugin": "^0.5.5",
+      "react-refresh": "^0.11.0",
+      "eslint-plugin-react": "^7.8.2",
+      "eslint-plugin-import": "^2.12.0",
+      "eslint-plugin-react-hooks": "^4.2.0",
+      "stylelint": "^14.4.0",
+      "@typescript-eslint/parser": "^5.20.0",
+      "@typescript-eslint/eslint-plugin": "^5.20.0",
+      "typescript": "^4.1.0",
+      "postcss": "^8.4.18",
+      "ts-node": "^10.9.1",
+      "@types/node": "^18.15.11"
+    }
+  }
+
+yarn manifest: 
+  No manifest
+
+Lockfile: 
+  No lockfile
