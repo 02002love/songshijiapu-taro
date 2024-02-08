@@ -2,17 +2,15 @@
   display: flex;
   align-items: flex-start;
   justify-content: flex-end;
-  width: 4.2rem;
   height: fit-content;
   background-color: #fffbf5;
   border-radius: 0.3rem;
   border: 0.025rem solid #e7c48d;
-  margin: 1rem;
   position: relative;
 }
 .item-wrapper .dash-line {
   width: 0.01rem;
-  border: 0.05rem dashed #824504;
+  border-left: 0.1rem dashed #824504;
   position: absolute;
   top: 0;
   bottom: 0;

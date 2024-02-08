@@ -12,7 +12,20 @@ function TextUpdaterNode({ data, isConnectable }) {
         type="target"
         position={Position.Top}
         isConnectable={isConnectable}
+        className="dot-color"
       />
+      {/* <View className="item-word-wrapper">
+        <View
+          className="item-dot"
+          style={{ backgroundColor: "#1d3d63" }}
+        ></View>
+        <Text
+          className="item-word item-word-Lishu"
+          style={{ color: "#1d3d63" }}
+        >
+          {data.generationWord}字辈
+        </Text>
+      </View> */}
       <View className="item-word-wrapper">
         <View
           className="item-dot"
@@ -22,7 +35,7 @@ function TextUpdaterNode({ data, isConnectable }) {
           className="item-word item-word-Lishu"
           style={{ color: "#1d3d63" }}
         >
-          {data.rankIndex === 1 ? "长子" : "次子"}
+          {numberToChinese(data.rankIndex, true)}子
         </Text>
       </View>
       <View className="item-word-wrapper">
@@ -43,12 +56,14 @@ function TextUpdaterNode({ data, isConnectable }) {
         <Text className="item-word">
           {numberToChinese(data.generationNumber)}世
         </Text>
-        <Text className="item-generate">{data.gender === 1 ? "男" : "女"}</Text>
+        {/* <Text className="item-generate">{data.gender === 1 ? "男" : "女"}</Text> */}
+        <Text className="item-generate">{data.generationWord}</Text>
       </View>
       <Handle
         type="source"
         position={Position.Bottom}
         isConnectable={isConnectable}
+        className="dot-color"
       />
     </View>
   );
