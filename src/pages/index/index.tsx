@@ -7,22 +7,23 @@ import ReactFlow, {
 import "reactflow/dist/style.css";
 
 import TextUpdaterNode from "./TextUpdaterNode";
+import CustomEdge from "./CustomEdge";
 
 import "./text-updater-node.css";
 
 const rfStyle = {
-  backgroundColor: "#999999",
+  backgroundColor: "#fff",
 };
 
 const initialEdges = [
   {
-    id: "edge-1",
+    id: "56",
+    type: "custom-edge",
     source: "1",
     target: "2",
-    sourceHandle: "1",
-    targetHandle: "2",
+    animated: true,
+    style: { stroke: "#f00" },
   },
-  // { id: 'edge-2', source: 'node-1', target: 'node-3', sourceHandle: 'b' },
 ];
 
 const initialNodes = [
@@ -32,7 +33,7 @@ const initialNodes = [
     position: { x: 0, y: 0 },
     data: {
       id: 1,
-      name: "春雨", // 名字
+      name: "春雨11", // 名字
       generationNumber: 2, // 世代
       generationWord: "春", // 辈分
       rankIndex: 1, // 排行
@@ -45,7 +46,7 @@ const initialNodes = [
     position: { x: 0, y: 200 },
     data: {
       id: 1,
-      name: "春龙", // 名字
+      name: "春龙22", // 名字
       generationNumber: 2, // 世代
       generationWord: "春", // 辈分
       rankIndex: 1, // 排行
@@ -58,6 +59,10 @@ const initialNodes = [
 // you could also use useMemo inside the component
 const nodeTypes = { textUpdater: TextUpdaterNode };
 
+const edgeTypes = {
+  "custom-edge": CustomEdge,
+};
+
 function Flow() {
   const [nodes, setNodes] = useState(initialNodes);
   const [edges, setEdges] = useState(initialEdges);
@@ -67,11 +72,21 @@ function Flow() {
     [setNodes]
   );
   const onEdgesChange = useCallback(
-    (changes) => setEdges((eds) => applyEdgeChanges(changes, eds)),
+    (changes) =>
+      setEdges((eds) => {
+        debugger;
+        console.log(eds);
+        return applyEdgeChanges(changes, eds);
+      }),
     [setEdges]
   );
   const onConnect = useCallback(
-    (connection) => setEdges((eds) => addEdge(connection, eds)),
+    (connection) =>
+      setEdges((eds) => {
+        debugger;
+        console.log(eds);
+        return addEdge(connection, eds);
+      }),
     [setEdges]
   );
 

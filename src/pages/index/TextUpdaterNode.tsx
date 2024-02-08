@@ -3,22 +3,14 @@ import { Handle, Position } from "reactflow";
 import { View, Text } from "@tarojs/components";
 import "./index.less";
 import { numberToChinese } from "@/util/toolFunction";
-const handleStyle = { left: 10 };
 
 function TextUpdaterNode({ data, isConnectable }) {
   console.log(data);
-  const onChange = useCallback((evt) => {
-    console.log(evt.target.value);
-  }, []);
-
-
   return (
     <View className="item-wrapper" key={data.id}>
       <Handle
-        type="source"
-        position={Position.Bottom}
-        id="a"
-        style={handleStyle}
+        type="target"
+        position={Position.Top}
         isConnectable={isConnectable}
       />
       <View className="item-word-wrapper">
@@ -53,6 +45,11 @@ function TextUpdaterNode({ data, isConnectable }) {
         </Text>
         <Text className="item-generate">{data.gender === 1 ? "男" : "女"}</Text>
       </View>
+      <Handle
+        type="source"
+        position={Position.Bottom}
+        isConnectable={isConnectable}
+      />
     </View>
   );
 }
