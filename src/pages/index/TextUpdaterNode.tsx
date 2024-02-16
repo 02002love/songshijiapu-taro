@@ -1,8 +1,8 @@
 import { useCallback } from "react";
 import { Handle, Position } from "reactflow";
 import { View, Text } from "@tarojs/components";
-import "./index.less";
 import { numberToChinese } from "@/util/toolFunction";
+import "./index.less";
 
 function TextUpdaterNode({ data, isConnectable }) {
   console.log(data);
