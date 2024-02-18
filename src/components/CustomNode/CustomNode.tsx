@@ -2,10 +2,10 @@ import { useCallback } from "react";
 import { Handle, Position, NodeToolbar } from "reactflow";
 import { View, Text } from "@tarojs/components";
 import { numberToChinese } from "@/util/toolFunction";
-import "./index.less";
+import "./CustomNode.less";
 import { AtIcon } from "taro-ui";
 
-function TextUpdaterNode({ data, isConnectable }) {
+function CustomNode({ data, isConnectable }) {
   console.log(data.id);
   return (
     <View className="item-wrapper" key={data.id}>
@@ -15,11 +15,9 @@ function TextUpdaterNode({ data, isConnectable }) {
         offset={0}
       >
         <View>
-          <AtIcon
-            value="add-circle"
-            size="14"
-            color="#f00"
-          ></AtIcon>
+          <AtIcon value="add-circle" size="14" color="#e7c48d"></AtIcon>
+          <AtIcon value="money" size="14" color="#e7c48d"></AtIcon>
+          <AtIcon value="trash" size="14" color="#e7c48d"></AtIcon>
         </View>
       </NodeToolbar>
       <Handle
@@ -83,4 +81,4 @@ function TextUpdaterNode({ data, isConnectable }) {
   );
 }
 
-export default TextUpdaterNode;
+export default CustomNode;

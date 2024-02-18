@@ -1,9 +1,8 @@
 import ReactFlow, { MiniMap } from "reactflow";
 import { uuid } from "@/util/toolFunction";
 import "reactflow/dist/style.css";
-import TextUpdaterNode from "./TextUpdaterNode";
+import CustomNode from "../../components/CustomNode/CustomNode";
 
-import "./text-updater-node.css";
 
 const rfStyle = {
   backgroundColor: "#fff",
@@ -118,7 +117,7 @@ staffPersonList.map((person: any) => {
 
 console.log(initialNodes);
 
-const nodeTypes = { textUpdater: TextUpdaterNode };
+const nodeTypes = { textUpdater: CustomNode };
 
 // 节点点击
 const onNodeClick = (e: any, node: any) => {
