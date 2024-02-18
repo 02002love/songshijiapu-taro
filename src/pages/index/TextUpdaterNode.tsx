@@ -1,13 +1,27 @@
 import { useCallback } from "react";
-import { Handle, Position } from "reactflow";
+import { Handle, Position, NodeToolbar } from "reactflow";
 import { View, Text } from "@tarojs/components";
 import { numberToChinese } from "@/util/toolFunction";
 import "./index.less";
+import { AtIcon } from "taro-ui";
 
 function TextUpdaterNode({ data, isConnectable }) {
   console.log(data.id);
   return (
     <View className="item-wrapper" key={data.id}>
+      <NodeToolbar
+        isVisible={data.forceToolbarVisible || undefined}
+        position={Position.Right}
+        offset={0}
+      >
+        <View>
+          <AtIcon
+            value="add-circle"
+            size="14"
+            color="#f00"
+          ></AtIcon>
+        </View>
+      </NodeToolbar>
       <Handle
         type="target"
         position={Position.Top}
