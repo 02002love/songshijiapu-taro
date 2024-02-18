@@ -2,7 +2,7 @@
  * @Author: songjinwei1 songjinwei1@yiche.com
  * @Date: 2024-02-07 15:43:24
  * @LastEditors: songjinwei1 songjinwei1@yiche.com
- * @LastEditTime: 2024-02-08 16:56:52
+ * @LastEditTime: 2024-02-16 23:13:11
  * @FilePath: /songshijiapu-taro/src/util/toolFunction.ts
  * @Description: 
  * 
@@ -24,4 +24,13 @@ export const numberToChinese = (num: number, isGen?: boolean): string => {
   });
 
   return result;
+}
+
+// 获取唯一值
+export const uuid = () => {
+  function S4() {
+    return (((1 + Math.random()) * 0x10000) | 0).toString(16).substring(1);
+  }
+  return S4() + new Date().getTime();
+  //(S4() + S4() + "-" + S4() + "-" + S4() + "-" + S4() + "-" + S4() + S4() + S4());
 }

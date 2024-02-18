@@ -1,11 +1,12 @@
 import ReactFlow, { MiniMap } from "reactflow";
+import { uuid } from "@/util/toolFunction";
 import "reactflow/dist/style.css";
 import TextUpdaterNode from "./TextUpdaterNode";
 
 import "./text-updater-node.css";
 
 const rfStyle = {
-  backgroundColor: "#999",
+  backgroundColor: "#fff",
 };
 
 const gapWidth = 100;
@@ -36,37 +37,37 @@ const staffPersonList = [
     childrenIds: [5], // 后代
     position: { x: -gapWidth, y: gapHeight },
   },
-  {
-    id: 3,
-    name: "传海",
-    nickName: "社庄",
-    generationNumber: 2,
-    generationWord: "传",
-    gender: 1,
-    rankIndex: 2, // 排行
-    childrenIds: [4], // 后代
-    position: { x: gapWidth, y: gapHeight },
-  },
-  {
-    id: 4,
-    name: "金委",
-    rankIndex: 1, // 排行
-    generationNumber: 3,
-    generationWord: "家",
-    gender: 1,
-    childrenIds: [], // 后代
-    position: { x: gapWidth, y: gapHeight * 2 },
-  },
-  {
-    id: 5,
-    name: "银伟",
-    rankIndex: 1, // 排行
-    generationNumber: 3,
-    generationWord: "家",
-    gender: 1,
-    childrenIds: [], // 后代
-    position: { x: -gapWidth, y: gapHeight * 2 },
-  },
+  // {
+  //   id: 3,
+  //   name: "传海",
+  //   nickName: "社庄",
+  //   generationNumber: 2,
+  //   generationWord: "传",
+  //   gender: 1,
+  //   rankIndex: 2, // 排行
+  //   childrenIds: [4], // 后代
+  //   position: { x: gapWidth, y: gapHeight },
+  // },
+  // {
+  //   id: 4,
+  //   name: "金委",
+  //   rankIndex: 1, // 排行
+  //   generationNumber: 3,
+  //   generationWord: "家",
+  //   gender: 1,
+  //   childrenIds: [], // 后代
+  //   position: { x: gapWidth, y: gapHeight * 2 },
+  // },
+  // {
+  //   id: 5,
+  //   name: "银伟",
+  //   rankIndex: 1, // 排行
+  //   generationNumber: 3,
+  //   generationWord: "家",
+  //   gender: 1,
+  //   childrenIds: [], // 后代
+  //   position: { x: -gapWidth, y: gapHeight * 2 },
+  // },
 ];
 
 let initialEdges: any = [];
@@ -75,7 +76,7 @@ staffPersonList.map((person: any) => {
     const { id, childrenIds } = person;
     childrenIds.map((child: any) => {
       initialEdges.push({
-        id,
+        id: uuid(),
         source: id + "",
         target: child + "",
         animated: true,
@@ -85,13 +86,12 @@ staffPersonList.map((person: any) => {
   }
 });
 
-// console.log(initialEdges);
+console.log(initialEdges);
 
 // 格式化 node 信息
 let initialNodes: any = [];
 staffPersonList.map((person: any) => {
   const { id, position } = person;
-  person.fatherX = 1;
   initialNodes.push({
     id: id + "",
     type: "textUpdater",
@@ -120,12 +120,19 @@ console.log(initialNodes);
 
 const nodeTypes = { textUpdater: TextUpdaterNode };
 
+// 节点点击
+const onNodeClick = (e: any, node: any) => {
+  console.log(e);
+  console.log(135, node, "nodes");
+};
+
 function Flow() {
   return (
     <ReactFlow
       nodes={initialNodes}
       edges={initialEdges}
       nodeTypes={nodeTypes}
+      onNodeClick={onNodeClick}
       fitView
       style={rfStyle}
       fitViewOptions={{ padding: 2 }}

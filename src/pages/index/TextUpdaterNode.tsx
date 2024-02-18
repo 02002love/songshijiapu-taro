@@ -5,7 +5,7 @@ import { numberToChinese } from "@/util/toolFunction";
 import "./index.less";
 
 function TextUpdaterNode({ data, isConnectable }) {
-  console.log(data);
+  console.log(data.id);
   return (
     <View className="item-wrapper" key={data.id}>
       <Handle
