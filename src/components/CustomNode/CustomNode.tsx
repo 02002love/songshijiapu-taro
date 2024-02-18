@@ -27,7 +27,7 @@ function CustomNode(props: any) {
         </View>
         <View
           onClick={(e) => {
-            console.log("删除当前节点");
+            data.delMethod(data);
             e.preventDefault();
             e.stopPropagation(); //阻止事件冒泡
           }}

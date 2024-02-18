@@ -3,6 +3,8 @@ import ReactFlow, {
   addEdge,
   applyEdgeChanges,
   applyNodeChanges,
+  getConnectedEdges,
+  getOutgoers,
 } from "reactflow";
 import { useCallback, useEffect, useState } from "react";
 import { uuid } from "@/util/toolFunction";
@@ -46,40 +48,43 @@ const staffList = [
     childrenIds: [5], // 后代
     position: { x: -gapWidth, y: gapHeight },
   },
-  // {
-  //   id: 3,
-  //   name: "传海",
-  //   nickName: "社庄",
-  //   generationNumber: 2,
-  //   generationWord: "传",
-  //   gender: 1,
-  //   rankIndex: 2, // 排行
-  //   childrenIds: [4], // 后代
-  //   position: { x: gapWidth, y: gapHeight },
-  // },
-  // {
-  //   id: 4,
-  //   name: "金委",
-  //   rankIndex: 1, // 排行
-  //   generationNumber: 3,
-  //   generationWord: "家",
-  //   gender: 1,
-  //   childrenIds: [], // 后代
-  //   position: { x: gapWidth, y: gapHeight * 2 },
-  // },
-  // {
-  //   id: 5,
-  //   name: "银伟",
-  //   rankIndex: 1, // 排行
-  //   generationNumber: 3,
-  //   generationWord: "家",
-  //   gender: 1,
-  //   childrenIds: [], // 后代
-  //   position: { x: -gapWidth, y: gapHeight * 2 },
-  // },
+  {
+    id: 3,
+    name: "传海",
+    nickName: "社庄",
+    generationNumber: 2,
+    generationWord: "传",
+    gender: 1,
+    rankIndex: 2, // 排行
+    childrenIds: [4], // 后代
+    position: { x: gapWidth, y: gapHeight },
+  },
+  {
+    id: 4,
+    name: "金委",
+    rankIndex: 1, // 排行
+    generationNumber: 3,
+    generationWord: "家",
+    gender: 1,
+    childrenIds: [], // 后代
+    position: { x: gapWidth, y: gapHeight * 2 },
+  },
+  {
+    id: 5,
+    name: "银伟",
+    rankIndex: 1, // 排行
+    generationNumber: 3,
+    generationWord: "家",
+    gender: 1,
+    childrenIds: [], // 后代
+    position: { x: -gapWidth, y: gapHeight * 2 },
+  },
 ];
 
 function Flow() {
+  const [nodes, setNodes] = useState<any>([]);
+  const [edges, setEdges] = useState<any>([]);
+
   useEffect(() => {
     // 格式化 edge 信息
     let initialEdges: any = [];
@@ -106,12 +111,17 @@ function Flow() {
         id: id + "",
         type: "CustomNodeType",
         position: position,
-        data: { ...person, addMethod: onNodesAdd },
+        data: {
+          ...person,
+          addMethod: onNodesAdd,
+          delMethod: onNodeDelete,
+        },
       });
     });
 
     setEdges(initialEdges);
     setNodes(initialNodes);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const onNodesAdd = (node: any) => {
@@ -119,16 +129,32 @@ function Flow() {
     // 第二个孩子 在父节点两边
     // 第三个孩子 在父节点的 正下方 和两边
     // 依次类推
-    console.log("node: " + node);
+    console.log("添加子节点node: " + node.id);
     //{"id":2,"name":"社会","generationNumber":2,"generationWord":"传","gender":1,"rankIndex":1,"childrenIds":[5],
     //"position": { "x": -100, "y": 200 }}
+
+    // const { id, position, childrenIds } = node;
+    // const newNode = {
+    //   id: id + "",
+    //   type: "CustomNodeType",
+    //   position: position,
+    //   data: { ...node, addMethod: onNodesAdd, delMethod: onNodeDelete },
+    // };
+
+    // 获取子节点的个数
+    debugger;
+    // setNodes([...nodes, newNode]);
+
+    const connectedEdges = getConnectedEdges(nodes, edges);
+    console.log("connectedEdges: " + connectedEdges);
+
+    // const incomers = getOutgoers(node, nodes, edges);
+    // console.log("incomers: " + incomers);
   };
 
-  const deleteNode = (node: any) => {
-    console.log("node: " + node);
+  const onNodeDelete = (node: any) => {
+    console.log("删除本节点node: " + node.id);
   };
-  const [nodes, setNodes] = useState([]);
-  const [edges, setEdges] = useState([]);
 
   const onNodesChange = useCallback(
     (changes: any) => setNodes((nds: any) => applyNodeChanges(changes, nds)),
@@ -146,7 +172,7 @@ function Flow() {
   // 节点点击
   const onNodeClick = (e: any, node: any) => {
     console.log(e);
-    console.log(135, node, "nodes");
+    console.log(135, node);
   };
 
   return (
