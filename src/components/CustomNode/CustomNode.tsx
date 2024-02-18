@@ -5,20 +5,48 @@ import { numberToChinese } from "@/util/toolFunction";
 import "./CustomNode.less";
 import { AtIcon } from "taro-ui";
 
-function CustomNode({ data, isConnectable }) {
-  console.log(data.id);
+function CustomNode(props: any) {
+  console.log(props);
+  const { data, isConnectable } = props;
+
   return (
     <View className="item-wrapper" key={data.id}>
+      {/* //TODO: 根据页面权限是否显示此 view */}
+      <View
+        className="tool-bar-wrapper"
+        style={{ display: props.selected ? "flex" : "none" }}
+      >
+        <View
+          onClick={(e) => {
+            data.addMethod(data);
+            e.preventDefault();
+            e.stopPropagation(); //阻止事件冒泡
+          }}
+        >
+          <AtIcon value="add-circle" size="14" color="#e7c48d"></AtIcon>
+        </View>
+        <View
+          onClick={(e) => {
+            console.log("删除当前节点");
+            e.preventDefault();
+            e.stopPropagation(); //阻止事件冒泡
+          }}
+        >
+          <AtIcon value="trash" size="14" color="#e7c48d"></AtIcon>
+        </View>
+
+        {/* <AtIcon value="money" size="14" color="#e7c48d"></AtIcon> */}
+      </View>
       <NodeToolbar
         isVisible={data.forceToolbarVisible || undefined}
         position={Position.Right}
         offset={0}
       >
-        <View>
+        {/* <View className="tool-bar-wrapper">
           <AtIcon value="add-circle" size="14" color="#e7c48d"></AtIcon>
           <AtIcon value="money" size="14" color="#e7c48d"></AtIcon>
           <AtIcon value="trash" size="14" color="#e7c48d"></AtIcon>
-        </View>
+        </View> */}
       </NodeToolbar>
       <Handle
         type="target"

@@ -1,21 +1,31 @@
-import ReactFlow, { MiniMap } from "reactflow";
+import ReactFlow, {
+  MiniMap,
+  addEdge,
+  applyEdgeChanges,
+  applyNodeChanges,
+} from "reactflow";
+import { useCallback, useEffect, useState } from "react";
 import { uuid } from "@/util/toolFunction";
 import "reactflow/dist/style.css";
-import CustomNode from "../../components/CustomNode/CustomNode";
+import CustomNode from "@/components/CustomNode/CustomNode";
 
-
+const nodeTypes = { CustomNodeType: CustomNode };
+// 背景样式
 const rfStyle = {
   backgroundColor: "#fff",
 };
 
+// 节点之间的横向间距
 const gapWidth = 100;
+// 节点之间的竖向间距
 const gapHeight = 200;
 
+// 缩略图样式
 const minimapStyle = {
   height: 120,
 };
-
-const staffPersonList = [
+// mock数据
+const staffList = [
   {
     id: 1,
     name: "春雨", // 名字
@@ -69,73 +79,90 @@ const staffPersonList = [
   // },
 ];
 
-let initialEdges: any = [];
-staffPersonList.map((person: any) => {
-  if (person.childrenIds && person.childrenIds.length > 0) {
-    const { id, childrenIds } = person;
-    childrenIds.map((child: any) => {
-      initialEdges.push({
-        id: uuid(),
-        source: id + "",
-        target: child + "",
-        animated: true,
-        style: { stroke: "#f00" },
+function Flow() {
+  useEffect(() => {
+    // 格式化 edge 信息
+    let initialEdges: any = [];
+    staffList.map((person: any) => {
+      if (person.childrenIds && person.childrenIds.length > 0) {
+        const { id, childrenIds } = person;
+        childrenIds.map((child: any) => {
+          initialEdges.push({
+            id: uuid(),
+            source: id + "",
+            target: child + "",
+            animated: true,
+            style: { stroke: "#f00" },
+          });
+        });
+      }
+    });
+
+    // 格式化 node 信息
+    let initialNodes: any = [];
+    staffList.map((person: any) => {
+      const { id, position } = person;
+      initialNodes.push({
+        id: id + "",
+        type: "CustomNodeType",
+        position: position,
+        data: { ...person, addMethod: onNodesAdd },
       });
     });
-  }
-});
 
-console.log(initialEdges);
+    setEdges(initialEdges);
+    setNodes(initialNodes);
+  }, []);
 
-// 格式化 node 信息
-let initialNodes: any = [];
-staffPersonList.map((person: any) => {
-  const { id, position } = person;
-  initialNodes.push({
-    id: id + "",
-    type: "textUpdater",
-    position: position,
-    data: person,
-  });
-});
+  const onNodesAdd = (node: any) => {
+    // 第一个孩子 直接创建在父节点的 正下方
+    // 第二个孩子 在父节点两边
+    // 第三个孩子 在父节点的 正下方 和两边
+    // 依次类推
+    console.log("node: " + node);
+    //{"id":2,"name":"社会","generationNumber":2,"generationWord":"传","gender":1,"rankIndex":1,"childrenIds":[5],
+    //"position": { "x": -100, "y": 200 }}
+  };
 
-// initialNodes.unshift({
-//   id: "-1",
-//   type: "default",
-//   data: {
-//     label: (
-//       <>
-//         On the bottom left you see the <strong>Controls</strong> and the bottom
-//         right the <strong>MiniMap</strong>. This is also just a node 🥳
-//       </>
-//     ),
-//   },
-//   draggable: false,
-//   selectable: false,
-//   position: { x: 0, y: 400 },
-// });
+  const deleteNode = (node: any) => {
+    console.log("node: " + node);
+  };
+  const [nodes, setNodes] = useState([]);
+  const [edges, setEdges] = useState([]);
 
-console.log(initialNodes);
+  const onNodesChange = useCallback(
+    (changes: any) => setNodes((nds: any) => applyNodeChanges(changes, nds)),
+    [setNodes]
+  );
+  const onEdgesChange = useCallback(
+    (changes: any) => setEdges((eds: any) => applyEdgeChanges(changes, eds)),
+    [setEdges]
+  );
+  const onConnect = useCallback(
+    (connection: any) => setEdges((eds: any) => addEdge(connection, eds)),
+    [setEdges]
+  );
 
-const nodeTypes = { textUpdater: CustomNode };
+  // 节点点击
+  const onNodeClick = (e: any, node: any) => {
+    console.log(e);
+    console.log(135, node, "nodes");
+  };
 
-// 节点点击
-const onNodeClick = (e: any, node: any) => {
-  console.log(e);
-  console.log(135, node, "nodes");
-};
-
-function Flow() {
   return (
     <ReactFlow
-      nodes={initialNodes}
-      edges={initialEdges}
-      nodeTypes={nodeTypes}
+      nodes={nodes}
+      edges={edges}
+      onNodesChange={onNodesChange}
+      onEdgesChange={onEdgesChange}
       onNodeClick={onNodeClick}
+      onConnect={onConnect}
+      nodeTypes={nodeTypes}
       fitView
       style={rfStyle}
       fitViewOptions={{ padding: 2 }}
       nodeOrigin={[0.5, 0]}
+      attributionPosition={undefined}
     >
       <MiniMap style={minimapStyle} />
     </ReactFlow>
