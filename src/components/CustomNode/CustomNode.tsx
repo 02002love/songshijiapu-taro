@@ -10,7 +10,7 @@ function CustomNode(props: any) {
   const { data, isConnectable } = props;
 
   return (
-    <View className="item-wrapper" key={data.id}>
+    <View className="item-wrapper" key={data.id}>  
       {/* //TODO: 根据页面权限是否显示此 view */}
       <View
         className="tool-bar-wrapper"
