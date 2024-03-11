@@ -2,14 +2,19 @@
  * @Author: songjinwei1 songjinwei1@yiche.com
  * @Date: 2024-02-07 15:43:24
  * @LastEditors: songjinwei1 songjinwei1@yiche.com
- * @LastEditTime: 2024-02-16 23:13:11
+ * @LastEditTime: 2024-03-11 10:55:11
  * @FilePath: /songshijiapu-taro/src/util/toolFunction.ts
  * @Description: 
  * 
  * Copyright (c) 2024 by YICHE, All Rights Reserved. 
  */
 
-
+/**
+ * @description: 阿拉伯数字转大写 / 后代排行
+ * @param {number} num 阿拉伯数字
+ * @param {boolean} isGen 是否为后代排行
+ * @return {*} 一百二十 / 长子-次子-三子
+ */
 export const numberToChinese = (num: number, isGen?: boolean): string => {
   var units = ['', '十', '百', '千', '万', '十万', '百万', '千万', '亿'];
   var digits = ['', '一', '二', '三', '四', '五', '六', '七', '八', '九'];
