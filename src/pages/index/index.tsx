@@ -2,7 +2,7 @@
  * @Author: songjinwei1 songjinwei1@yiche.com
  * @Date: 2024-02-18 10:54:42
  * @LastEditors: songjinwei1 songjinwei1@yiche.com
- * @LastEditTime: 2024-03-11 11:27:11
+ * @LastEditTime: 2024-03-11 16:29:27
  * @FilePath: /songshijiapu-taro/src/pages/index/index.tsx
  * @Description:
  *
@@ -15,6 +15,8 @@ import ReactFlow, {
   applyNodeChanges,
   // getConnectedEdges,
 } from "reactflow";
+// import { Form, Input, Modal, Spin } from "antd";
+import { Overlay } from "@antmjs/vantui";
 import { numberToChinese } from "@/util/toolFunction";
 
 import { useCallback, useEffect, useRef, useState } from "react";
@@ -101,6 +103,8 @@ function Flow() {
   const edgesRef = useRef(edges);
   edgesRef.current = edges;
 
+  const [addNodePopShow, setAddNodePopShow] = useState<any>(false); // 底部弹窗
+
   useEffect(() => {
     // 格式化 edge 信息
     let initialEdges: any = [];
@@ -156,11 +160,7 @@ function Flow() {
    * @param {any} node 父节点
    * @return {*} 子节点
    */
-  const initChildInfo = (node: any): any => {
-    // 第一个孩子 直接创建在父节点的 正下方
-    // 第二个孩子 在父节点两边
-    // 第三个孩子 在父节点的 正下方 和两边
-    // 依次类推
+  const initNodeInfo = (node: any): any => {
     const { name, generationNumber, childrenIds, position } = node;
 
     const uuid = UUID();
@@ -186,10 +186,20 @@ function Flow() {
     const connectedEdges = getChildrenOfNode([node]);
     console.log("孩子个数: " + connectedEdges.length);
 
-    debugger;
+    const targetIds = connectedEdges.map((item: any) => item.target);
+    const childrenNode = nodesRef.current.filter((item: { id: any }) =>
+      targetIds.includes(item.id)
+    );
 
-    // 没有孩子
-    if (connectedEdges.length === 0) {
+    debugger;
+    // 第一个孩子 直接创建在父节点的 正下方, 第二个孩子 在父节点两边, 第三个孩子 在父节点的 正下方 和两边, 依次类推
+    if (childrenNode.length % 2 === 0) {
+      // 偶数个孩子
+      const newPosition = { x: position.x, y: position.y + gapHeight };
+      newNode.position = newPosition;
+      newNode.data.position = newPosition;
+    } else {
+      // 奇数个孩子
       const newPosition = { x: position.x, y: position.y + gapHeight };
       newNode.position = newPosition;
       newNode.data.position = newPosition;
@@ -214,11 +224,13 @@ function Flow() {
    * @return {*}
    */
   const onNodesAdd = (node: any): any => {
-    const newNode = initChildInfo(node);
-    // 更新节点
-    setNodes([...nodesRef.current, newNode]);
-    // 更新关系
-    setEdges([...edgesRef.current, initEdgeInfo(node.id, newNode.id)]);
+    // const newNode = initNodeInfo(node);
+    // // 更新节点
+    // setNodes([...nodesRef.current, newNode]);
+    // // 更新关系
+    // setEdges([...edgesRef.current, initEdgeInfo(node.id, newNode.id)]);
+
+    setAddNodePopShow(true);
   };
 
   /**
@@ -256,22 +268,27 @@ function Flow() {
   };
 
   return (
-    <ReactFlow
-      nodes={nodes}
-      edges={edges}
-      onNodesChange={onNodesChange}
-      onEdgesChange={onEdgesChange}
-      onNodeClick={onNodeClick}
-      onConnect={onConnect}
-      nodeTypes={nodeTypes}
-      fitView
-      style={rfStyle}
-      fitViewOptions={{ padding: 2 }}
-      nodeOrigin={[0.5, 0]}
-      attributionPosition={undefined}
-    >
-      <MiniMap style={minimapStyle} />
-    </ReactFlow>
+    <>
+      <ReactFlow
+        nodes={nodes}
+        edges={edges}
+        onNodesChange={onNodesChange}
+        onEdgesChange={onEdgesChange}
+        onNodeClick={onNodeClick}
+        onConnect={onConnect}
+        nodeTypes={nodeTypes}
+        fitView
+        style={rfStyle}
+        fitViewOptions={{ padding: 2 }}
+        nodeOrigin={[0.5, 0]}
+        attributionPosition={undefined}
+      >
+        <MiniMap style={minimapStyle} />
+      </ReactFlow>
+
+      {/* 添加子节点弹窗 */}
+      <Overlay show={addNodePopShow}>这里是添加节点的表单</Overlay>
+    </>
   );
 }
 
