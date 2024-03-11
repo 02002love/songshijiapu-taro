@@ -1,16 +1,17 @@
+import { AtIcon } from "taro-ui";
 import { useCallback } from "react";
 import { Handle, Position, NodeToolbar } from "reactflow";
 import { View, Text } from "@tarojs/components";
 import { numberToChinese } from "@/util/toolFunction";
 import "./CustomNode.less";
-import { AtIcon } from "taro-ui";
 
 function CustomNode(props: any) {
   console.log(props);
   const { data, isConnectable } = props;
+  const { addMethod, delMethod } = data;
 
   return (
-    <View className="item-wrapper" key={data.id}>  
+    <View className="item-wrapper" key={data.id}>
       {/* //TODO: 根据页面权限是否显示此 view */}
       <View
         className="tool-bar-wrapper"
@@ -18,7 +19,7 @@ function CustomNode(props: any) {
       >
         <View
           onClick={(e) => {
-            data.addMethod(data);
+            addMethod(data);
             e.preventDefault();
             e.stopPropagation(); //阻止事件冒泡
           }}
@@ -27,7 +28,7 @@ function CustomNode(props: any) {
         </View>
         <View
           onClick={(e) => {
-            data.delMethod(data);
+            delMethod(data);
             e.preventDefault();
             e.stopPropagation(); //阻止事件冒泡
           }}
@@ -54,18 +55,6 @@ function CustomNode(props: any) {
         isConnectable={isConnectable}
         className="dot-color"
       />
-      {/* <View className="item-word-wrapper">
-        <View
-          className="item-dot"
-          style={{ backgroundColor: "#1d3d63" }}
-        ></View>
-        <Text
-          className="item-word item-word-Lishu"
-          style={{ color: "#1d3d63" }}
-        >
-          {data.generationWord}字辈
-        </Text>
-      </View> */}
       <View className="item-word-wrapper">
         <View
           className="item-dot"
